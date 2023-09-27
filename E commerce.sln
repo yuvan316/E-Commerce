@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E commerce", "E commerce\E 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{CF8002CE-2C25-400E-876B-2C46874C2E9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceAPI", "API\Controller\EcommerceAPI\EcommerceAPI.csproj", "{E30850C7-5329-4133-A87C-2610190ECF8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EcommerceAPI", "API\Controller\EcommerceAPI\EcommerceAPI.csproj", "{E30850C7-5329-4133-A87C-2610190ECF8C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controller", "Controller", "{226ED6D1-F608-4B25-BB9C-D22D798F5CE8}"
 EndProject
@@ -15,11 +15,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessDomain", "BusinessD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{8628CCB2-4230-4611-8D37-6E91C2D2B03A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce BL", "API\BusinessDomain\Ecommerce BL\Ecommerce BL.csproj", "{CF63BCA3-C87D-452B-85EE-42EFBB35D173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce BL", "API\BusinessDomain\Ecommerce BL\Ecommerce BL.csproj", "{CF63BCA3-C87D-452B-85EE-42EFBB35D173}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce Repository", "API\DataAccess\Ecommerce Repository\Ecommerce Repository.csproj", "{883B049A-57FE-42CC-8AD5-F01594E53750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce Repository", "API\DataAccess\Ecommerce Repository\Ecommerce Repository.csproj", "{883B049A-57FE-42CC-8AD5-F01594E53750}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebClient", "WebClient", "{E05A1E47-397D-4AF5-AC36-9280D6B69F77}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreComponents", "{A8560B02-B9E7-42FC-B4A3-00B353EB26F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Constants", "Constants", "{695BC8B4-701B-48C0-8974-8181E0B81755}"
+	ProjectSection(SolutionItems) = preProject
+		Constants.cs = Constants.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreComponents", "CoreComponents\CoreComponents.csproj", "{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +52,10 @@ Global
 		{883B049A-57FE-42CC-8AD5-F01594E53750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{883B049A-57FE-42CC-8AD5-F01594E53750}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{883B049A-57FE-42CC-8AD5-F01594E53750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +68,8 @@ Global
 		{8628CCB2-4230-4611-8D37-6E91C2D2B03A} = {CF8002CE-2C25-400E-876B-2C46874C2E9F}
 		{CF63BCA3-C87D-452B-85EE-42EFBB35D173} = {D3731638-0211-44C8-BA8B-37ABB6D9945F}
 		{883B049A-57FE-42CC-8AD5-F01594E53750} = {8628CCB2-4230-4611-8D37-6E91C2D2B03A}
+		{695BC8B4-701B-48C0-8974-8181E0B81755} = {A8560B02-B9E7-42FC-B4A3-00B353EB26F1}
+		{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8} = {A8560B02-B9E7-42FC-B4A3-00B353EB26F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {538D7065-16B2-4BDE-84C4-7D07F6CC6B1E}

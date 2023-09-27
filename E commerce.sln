@@ -23,12 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebClient", "WebClient", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreComponents", "CoreComponents", "{A8560B02-B9E7-42FC-B4A3-00B353EB26F1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Constants", "Constants", "{695BC8B4-701B-48C0-8974-8181E0B81755}"
-	ProjectSection(SolutionItems) = preProject
-		Constants.cs = Constants.cs
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreComponents", "CoreComponents\CoreComponents.csproj", "{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreComponents", "CoreComponents\CoreComponents.csproj", "{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,7 +63,6 @@ Global
 		{8628CCB2-4230-4611-8D37-6E91C2D2B03A} = {CF8002CE-2C25-400E-876B-2C46874C2E9F}
 		{CF63BCA3-C87D-452B-85EE-42EFBB35D173} = {D3731638-0211-44C8-BA8B-37ABB6D9945F}
 		{883B049A-57FE-42CC-8AD5-F01594E53750} = {8628CCB2-4230-4611-8D37-6E91C2D2B03A}
-		{695BC8B4-701B-48C0-8974-8181E0B81755} = {A8560B02-B9E7-42FC-B4A3-00B353EB26F1}
 		{C6F95E8E-3BCF-4171-AE0C-18D2CB7C52D8} = {A8560B02-B9E7-42FC-B4A3-00B353EB26F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

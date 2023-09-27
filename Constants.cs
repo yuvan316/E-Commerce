@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region namespaces
+using System;
+#endregion
 
 namespace CoreComponents
 {

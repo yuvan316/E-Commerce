@@ -1,31 +1,35 @@
-﻿using Ecommerce_Repository.DBContext.Admin;
+﻿#region namespaces
+using CoreComponents.Constants;
+using Ecommerce_Repository.DBContext.Admin;
 using Ecommerce_Repository.IRepository;
 using Ecommerce_Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#endregion
 
 namespace Ecommerce_Repository.Repository
 {
     public class UserRepository : IUserRepository
 
     {
+        #region readonly fields
         private readonly AdminContext _ADMINCONTEXT;
+        #endregion
+        #region constructor
         public UserRepository(AdminContext adminContext)
         {
             _ADMINCONTEXT = adminContext;
         }
+        #endregion
+        #region methods
         public async Task<String> ValidateUser(LoginDM login)
         {
-            var isAvailableUser = "Invalid";
+            var isAvailableUser = Constants.Invalid;
             var userDetail = _ADMINCONTEXT.Users.FirstOrDefault(x => x.Email == login.UserName && x.PasswordHash == login.Password);
             if (userDetail != null)
             {
-                isAvailableUser = "Valid";
+                isAvailableUser = Constants.Valid;
             }
             return await Task.FromResult(isAvailableUser);
         }
+        #endregion
     }
 }

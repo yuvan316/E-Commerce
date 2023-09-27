@@ -10,17 +10,19 @@ namespace EcommerceAPI.Controller
         #region readonly fields
         private readonly IUserBL _IUSERBL;
         #endregion
+        #region constructor
         public UserController(IUserBL userBL) {
         _IUSERBL = userBL;
         }
-
+        #endregion
+        #region methods
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginBM login)
         {
-            var isSuccess = _IUSERBL.ValidateUser(login);
+            var isSuccess =await _IUSERBL.ValidateUser(login);
             return Ok(isSuccess);
         }
-
+        #endregion
     }
 }

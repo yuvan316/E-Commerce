@@ -3,11 +3,14 @@
 
 namespace EcommerceAPI.Controller
 {
-    #region constructor
+   
     public class ProductController : BaseController
     {
+        #region constructor
+        #endregion
+        #region methods
+        #endregion
     }
-    #endregion
-    #region methods
-    #endregion
+
+
 }

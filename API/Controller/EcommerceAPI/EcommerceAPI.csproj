@@ -17,4 +17,9 @@
     <ProjectReference Include="..\..\BusinessDomain\Ecommerce BL\Ecommerce BL.csproj" />
     <ProjectReference Include="..\..\DataAccess\Ecommerce Repository\Ecommerce Repository.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

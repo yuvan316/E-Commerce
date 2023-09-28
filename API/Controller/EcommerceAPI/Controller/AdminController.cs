@@ -3,13 +3,16 @@
 
 namespace EcommerceAPI.Controller
 {
-    #region readonly fields
-    #endregion
-    #region constructor
+  
+   
     public class AdminController : BaseController
     {
+        #region readonly fields
+        #endregion
+        #region constructor
+        #endregion
+        #region methods
+        #endregion
     }
-    #endregion
-    #region methods
-    #endregion
+
 }

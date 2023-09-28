@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EcommerceAPI.Controller
 {
     [ApiController]
-    [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
   
     public class BaseController : ControllerBase
     {

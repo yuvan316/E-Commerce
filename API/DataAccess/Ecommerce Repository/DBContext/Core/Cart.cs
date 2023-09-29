@@ -3,17 +3,15 @@ using System.Collections.Generic;
 
 namespace Ecommerce_Repository.DBContext.Core;
 
-public partial class Review
+public partial class Cart
 {
-    public Guid Reviewid { get; set; }
-
-    public Guid? Productid { get; set; }
+    public Guid Cartid { get; set; }
 
     public Guid? Customerid { get; set; }
 
-    public int? Rating { get; set; }
+    public Guid? Productid { get; set; }
 
-    public string? Reviewtext { get; set; }
+    public int? Quantity { get; set; }
 
     public virtual Product? Product { get; set; }
 }

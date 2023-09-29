@@ -14,6 +14,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CoreComponents\CoreComponents.csproj" />
     <ProjectReference Include="..\..\BusinessDomain\Ecommerce BL\Ecommerce BL.csproj" />
     <ProjectReference Include="..\..\DataAccess\Ecommerce Repository\Ecommerce Repository.csproj" />
   </ItemGroup>

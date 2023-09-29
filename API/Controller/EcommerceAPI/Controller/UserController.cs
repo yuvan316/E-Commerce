@@ -2,6 +2,7 @@
 using Ecommerce_BL.BusinessDomain.Models;
 using Ecommerce_BL.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 #endregion
 namespace EcommerceAPI.Controller
 {
@@ -20,8 +21,19 @@ namespace EcommerceAPI.Controller
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginBM login)
         {
+            Log.Information("Ecommerce: UserController: Login: Started");
             var isSuccess =await _IUSERBL.ValidateUser(login);
+            Log.Information("Ecommerce: UserController: Login: Started");
             return Ok(isSuccess);
+        }
+        [HttpPost]
+        [Route("SignUp")]
+        public async Task<IActionResult> SignUp([FromBody] NewUserBM newUser)
+        {
+            Log.Information("Ecommerce: UserController: SignUp: Started");
+            var status=await _IUSERBL.SignUp(newUser);
+            Log.Information("Ecommerce: UserController: SignUp: Started");
+            return Ok(status);
         }
         #endregion
     }

@@ -1,200 +1,175 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Ecommerce_Repository.DBContext.Core
+namespace Ecommerce_Repository.DBContext.Core;
+
+public partial class CoreContext : DbContext
 {
-    public partial class CoreContext : DbContext
+    public CoreContext()
     {
-        public CoreContext()
-        {
-        }
-
-        public CoreContext(DbContextOptions<CoreContext> options)
-            : base(options)
-        {
-        }
-
-        public virtual DbSet<Category> Categories { get; set; } = null!;
-        public virtual DbSet<Image> Images { get; set; } = null!;
-        public virtual DbSet<Order> Orders { get; set; } = null!;
-        public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
-        public virtual DbSet<Payment> Payments { get; set; } = null!;
-        public virtual DbSet<Product> Products { get; set; } = null!;
-        public virtual DbSet<Review> Reviews { get; set; } = null!;
-        public virtual DbSet<Shipping> Shippings { get; set; } = null!;
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-            }
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.ToTable("Categories", "core");
-
-                entity.Property(e => e.CategoryId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("CategoryID");
-
-                entity.Property(e => e.Name).HasMaxLength(255);
-            });
-
-            modelBuilder.Entity<Image>(entity =>
-            {
-                entity.ToTable("Images", "core");
-
-                entity.Property(e => e.ImageId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ImageID");
-
-                entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Images)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Images__ProductI__4F7CD00D");
-            });
-
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.ToTable("Orders", "core");
-
-                entity.Property(e => e.OrderId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderID");
-
-                entity.Property(e => e.OrderDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Status).HasMaxLength(50);
-
-                entity.Property(e => e.TotalAmount).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-            });
-
-            modelBuilder.Entity<OrderItem>(entity =>
-            {
-                entity.ToTable("OrderItems", "core");
-
-                entity.Property(e => e.OrderItemId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("OrderItemID");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__OrderItem__Order__73BA3083");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.OrderItems)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__OrderItem__Produ__72C60C4A");
-            });
-
-            modelBuilder.Entity<Payment>(entity =>
-            {
-                entity.ToTable("Payments", "core");
-
-                entity.Property(e => e.PaymentId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("PaymentID");
-
-                entity.Property(e => e.Amount).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.PaymentDate).HasColumnType("datetime");
-
-                entity.Property(e => e.PaymentMethod).HasMaxLength(50);
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Payments)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__Payments__OrderI__7A672E12");
-            });
-
-            modelBuilder.Entity<Product>(entity =>
-            {
-                entity.ToTable("Products", "core");
-
-                entity.HasIndex(e => e.Sku, "UQ__Products__CA1ECF0D16D1679D")
-                    .IsUnique();
-
-                entity.Property(e => e.ProductId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ProductID");
-
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-
-                entity.Property(e => e.Name).HasMaxLength(255);
-
-                entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
-
-                entity.Property(e => e.Sku)
-                    .HasMaxLength(50)
-                    .HasColumnName("SKU");
-
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Products)
-                    .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__Products__Catego__4CA06362");
-            });
-
-            modelBuilder.Entity<Review>(entity =>
-            {
-                entity.ToTable("Reviews", "core");
-
-                entity.Property(e => e.ReviewId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ReviewID");
-
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.Property(e => e.UserId).HasColumnName("UserID");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.Reviews)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__Reviews__Product__778AC167");
-            });
-
-            modelBuilder.Entity<Shipping>(entity =>
-            {
-                entity.ToTable("Shipping", "core");
-
-                entity.Property(e => e.ShippingId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ShippingID");
-
-                entity.Property(e => e.OrderId).HasColumnName("OrderID");
-
-                entity.Property(e => e.ShippingDate).HasColumnType("datetime");
-
-                entity.Property(e => e.TrackingNumber).HasMaxLength(50);
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Shippings)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__Shipping__OrderI__7D439ABD");
-            });
-
-            OnModelCreatingPartial(modelBuilder);
-        }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
+
+    public CoreContext(DbContextOptions<CoreContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<Cart> Carts { get; set; }
+
+    public virtual DbSet<Category> Categories { get; set; }
+
+    public virtual DbSet<Order> Orders { get; set; }
+
+    public virtual DbSet<Orderitem> Orderitems { get; set; }
+
+    public virtual DbSet<Product> Products { get; set; }
+
+    public virtual DbSet<Review> Reviews { get; set; }
+
+    public virtual DbSet<Shipping> Shippings { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    { }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasPostgresExtension("pgcrypto");
+
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(e => e.Cartid).HasName("cart_pkey");
+
+            entity.ToTable("cart", "core");
+
+            entity.Property(e => e.Cartid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("cartid");
+            entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.Productid).HasColumnName("productid");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.Productid)
+                .HasConstraintName("cart_productid_fkey");
+        });
+
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Categoryid).HasName("categories_pkey");
+
+            entity.ToTable("categories", "core");
+
+            entity.Property(e => e.Categoryid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("categoryid");
+            entity.Property(e => e.Categoryname)
+                .HasMaxLength(255)
+                .HasColumnName("categoryname");
+        });
+
+        modelBuilder.Entity<Order>(entity =>
+        {
+            entity.HasKey(e => e.Orderid).HasName("orders_pkey");
+
+            entity.ToTable("orders", "core");
+
+            entity.Property(e => e.Orderid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("orderid");
+            entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.Orderdate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("orderdate");
+        });
+
+        modelBuilder.Entity<Orderitem>(entity =>
+        {
+            entity.HasKey(e => e.Orderitemid).HasName("orderitems_pkey");
+
+            entity.ToTable("orderitems", "core");
+
+            entity.Property(e => e.Orderitemid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("orderitemid");
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
+            entity.Property(e => e.Productid).HasColumnName("productid");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.Orderitems)
+                .HasForeignKey(d => d.Orderid)
+                .HasConstraintName("orderitems_orderid_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Orderitems)
+                .HasForeignKey(d => d.Productid)
+                .HasConstraintName("orderitems_productid_fkey");
+        });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.HasKey(e => e.Productid).HasName("products_pkey");
+
+            entity.ToTable("products", "core");
+
+            entity.Property(e => e.Productid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("productid");
+            entity.Property(e => e.Categoryid).HasColumnName("categoryid");
+            entity.Property(e => e.Price)
+                .HasPrecision(18, 2)
+                .HasColumnName("price");
+            entity.Property(e => e.Productname)
+                .HasMaxLength(255)
+                .HasColumnName("productname");
+            entity.Property(e => e.Userid).HasColumnName("userid");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Products)
+                .HasForeignKey(d => d.Categoryid)
+                .HasConstraintName("products_categoryid_fkey");
+        });
+
+        modelBuilder.Entity<Review>(entity =>
+        {
+            entity.HasKey(e => e.Reviewid).HasName("reviews_pkey");
+
+            entity.ToTable("reviews", "core");
+
+            entity.Property(e => e.Reviewid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("reviewid");
+            entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.Productid).HasColumnName("productid");
+            entity.Property(e => e.Rating).HasColumnName("rating");
+            entity.Property(e => e.Reviewtext).HasColumnName("reviewtext");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Reviews)
+                .HasForeignKey(d => d.Productid)
+                .HasConstraintName("reviews_productid_fkey");
+        });
+
+        modelBuilder.Entity<Shipping>(entity =>
+        {
+            entity.HasKey(e => e.Shippingid).HasName("shipping_pkey");
+
+            entity.ToTable("shipping", "core");
+
+            entity.Property(e => e.Shippingid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("shippingid");
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
+            entity.Property(e => e.Shippingaddress)
+                .HasMaxLength(255)
+                .HasColumnName("shippingaddress");
+            entity.Property(e => e.Shippingdate)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("shippingdate");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.Shippings)
+                .HasForeignKey(d => d.Orderid)
+                .HasConstraintName("shipping_orderid_fkey");
+        });
+
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

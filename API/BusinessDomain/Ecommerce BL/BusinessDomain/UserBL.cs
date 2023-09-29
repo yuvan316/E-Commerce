@@ -4,6 +4,7 @@ using Ecommerce_BL.Interface;
 using Ecommerce_Repository.IRepository;
 using Ecommerce_Repository.Models;
 using Mapster;
+using Serilog;
 #endregion
 
 namespace Ecommerce_BL.BusinessDomain
@@ -20,10 +21,20 @@ namespace Ecommerce_BL.BusinessDomain
 
         public async Task<String> ValidateUser(LoginBM loginBM)
         {
+            Log.Information("Ecommerce: UserBL: ValidateUser: Started");
 
             var loginDM = loginBM.Adapt<LoginDM>();
             var isSuccess = await _IUSERREPOSITORY.ValidateUser(loginDM);
+            Log.Information("Ecommerce: UserBL: ValidateUser: Completed");
             return await Task.FromResult(isSuccess);
+        }
+        public async Task<String> SignUp(NewUserBM newUser)
+        {
+            Log.Information("Ecommerce: UserBL: SignUp: Started");
+            var newUserDM = newUser.Adapt<NewUserDM>();
+            var status = await _IUSERREPOSITORY.SignUp(newUserDM);
+            Log.Information("Ecommerce: UserBL: SignUp: Completed");
+            return await Task.FromResult(status);
         }
     }
 }

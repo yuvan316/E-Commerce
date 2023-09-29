@@ -7,5 +7,6 @@ namespace Ecommerce_BL.Interface
     public interface IUserBL
     {
       Task<String> ValidateUser(LoginBM loginBM);
+        Task<String> SignUp(NewUserBM newUser);
     }
 }

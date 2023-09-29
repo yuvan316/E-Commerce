@@ -9,11 +9,11 @@ namespace EcommerceAPI.Controller
     public class UserController : BaseController
     {
         #region readonly fields
-        private readonly IUserBL _IUSERBL;
+        private readonly IUserBL _USERBL;
         #endregion
         #region constructor
         public UserController(IUserBL userBL) {
-        _IUSERBL = userBL;
+        _USERBL = userBL;
         }
         #endregion
         #region methods
@@ -22,7 +22,7 @@ namespace EcommerceAPI.Controller
         public async Task<IActionResult> Login([FromBody] LoginBM login)
         {
             Log.Information("Ecommerce: UserController: Login: Started");
-            var isSuccess =await _IUSERBL.ValidateUser(login);
+            var isSuccess =await _USERBL.ValidateUser(login);
             Log.Information("Ecommerce: UserController: Login: Started");
             return Ok(isSuccess);
         }
@@ -31,7 +31,7 @@ namespace EcommerceAPI.Controller
         public async Task<IActionResult> SignUp([FromBody] NewUserBM newUser)
         {
             Log.Information("Ecommerce: UserController: SignUp: Started");
-            var status=await _IUSERBL.SignUp(newUser);
+            var status=await _USERBL.SignUp(newUser);
             Log.Information("Ecommerce: UserController: SignUp: Started");
             return Ok(status);
         }

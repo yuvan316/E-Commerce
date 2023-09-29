@@ -1,34 +1,25 @@
 ﻿#region namespaces
 using Ecommerce_BL.BusinessDomain.Models;
 using Ecommerce_BL.Interface;
-using Microsoft.AspNetCore.Mvc;
+using Ecommerce_Repository.IRepository;
 #endregion
 
-
-
-namespace EcommerceAPI.Controller
+namespace Ecommerce_BL.BusinessDomain
 {
-  
-   
-    public class AdminController : BaseController
+    public class AdminBL:IAdminBL
     {
         #region readonly fields
-        private readonly IUserBL _USERBL;
+        private readonly IAdminRepository _ADMINREPOSITORY;
         #endregion
         #region constructor
-        public AdminController(IUserBL userBL)
+        public AdminBL(IAdminRepository adminRepository)
         {
-            _USERBL = userBL;
+            
         }
         #endregion
-        #region methods
-        [HttpPost]
-        [Route("SignUp")]
         public async Task<String> SignUp(NewUserBM newUserBM)
         {
             return ("");
         }
-        #endregion
     }
-
 }

@@ -12,11 +12,11 @@ namespace Ecommerce_BL.BusinessDomain
     public class UserBL : IUserBL
     {
         #region readonly fields
-        private readonly IUserRepository _IUSERREPOSITORY;
+        private readonly IUserRepository _USERREPOSITORY;
         #endregion
         public UserBL(IUserRepository userRepository)
         {
-            _IUSERREPOSITORY = userRepository;
+            _USERREPOSITORY = userRepository;
         }
 
         public async Task<String> ValidateUser(LoginBM loginBM)
@@ -24,7 +24,7 @@ namespace Ecommerce_BL.BusinessDomain
             Log.Information("Ecommerce: UserBL: ValidateUser: Started");
 
             var loginDM = loginBM.Adapt<LoginDM>();
-            var isSuccess = await _IUSERREPOSITORY.ValidateUser(loginDM);
+            var isSuccess = await _USERREPOSITORY.ValidateUser(loginDM);
             Log.Information("Ecommerce: UserBL: ValidateUser: Completed");
             return await Task.FromResult(isSuccess);
         }
@@ -32,7 +32,7 @@ namespace Ecommerce_BL.BusinessDomain
         {
             Log.Information("Ecommerce: UserBL: SignUp: Started");
             var newUserDM = newUser.Adapt<NewUserDM>();
-            var status = await _IUSERREPOSITORY.SignUp(newUserDM);
+            var status = await _USERREPOSITORY.SignUp(newUserDM);
             Log.Information("Ecommerce: UserBL: SignUp: Completed");
             return await Task.FromResult(status);
         }

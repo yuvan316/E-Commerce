@@ -1,22 +1,24 @@
-﻿#region namespaces
-using CoreComponents.Constants;
+﻿using CoreComponents.Constants;
 using CoreComponents.EncryptDecrypt;
 using Ecommerce_Repository.DBContext.Admin;
 using Ecommerce_Repository.IRepository;
 using Ecommerce_Repository.Models;
 using Serilog;
-#endregion
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Ecommerce_Repository.Repository
 {
-    public class UserRepository : IUserRepository
-
+    public class AdminRepository:IAdminRepository
     {
         #region readonly fields
         private readonly AdminContext _ADMINCONTEXT;
         #endregion
         #region constructor
-        public UserRepository(AdminContext adminContext)
+        public AdminRepository(AdminContext adminContext)
         {
             _ADMINCONTEXT = adminContext;
         }
@@ -24,63 +26,63 @@ namespace Ecommerce_Repository.Repository
         #region methods
         public async Task<String> ValidateUser(LoginDM login)
         {
-            Log.Information("Ecommerce: UserRepository: ValidateUser: Started");
+            Log.Information("Ecommerce: AdminRepository: ValidateUser: Started");
             var isAvailableUser = Constants.Invalid;
             var passwordHash = EncryptDecrypt.EncryptPassword(login.Password);
-            var userDetail = _ADMINCONTEXT.Customers.FirstOrDefault(x => x.Email == login.UserName && x.Passwordhash == passwordHash);
+            var userDetail = _ADMINCONTEXT.AdminUsers.FirstOrDefault(x => x.Email == login.UserName && x.PasswordHash == passwordHash);
             if (userDetail != null)
             {
                 isAvailableUser = Constants.Valid;
             }
-            Log.Information("Ecommerce: UserRepository: ValidateUser: Completed");
+            Log.Information("Ecommerce: AdminRepository: ValidateUser: Completed");
 
             return await Task.FromResult(isAvailableUser);
         }
         public async Task<String> SignUp(NewUserDM newUserDM)
         {
-            Log.Information("Ecommerce: UserRepository: SignUp: Started");
+            Log.Information("Ecommerce: AdminRepository: SignUp: Started");
 
             var status = String.Empty;
-            var isAvailableUser = _ADMINCONTEXT.Customers.FirstOrDefault(x => x.Email == newUserDM.Email);
+            var isAvailableUser = _ADMINCONTEXT.AdminUsers.FirstOrDefault(x => x.Email == newUserDM.Email);
             if (isAvailableUser != null)
             {
-                Log.Information("Ecommerce: UserRepository: SignUp: User Already Exists");
+                Log.Information("Ecommerce: AdminRepository: SignUp: User Already Exists");
                 status = Constants.UserExists;
             }
             else
             {
-                Log.Information("Ecommerce: UserRepository: SignUp: New User Add Started");
+                Log.Information("Ecommerce: AdminRepository: SignUp: New User Add Started");
 
-                var user = new Customer()
+                var user = new AdminUser()
                 {
-                    Firstname = newUserDM.FirstName,
-                    Lastname = newUserDM.LastName,
+                    FirstName = newUserDM.FirstName,
+                    LastName = newUserDM.LastName,
                     Email = newUserDM.Email,
-                    Passwordhash = EncryptDecrypt.EncryptPassword(newUserDM.Password)
+                    PasswordHash = EncryptDecrypt.EncryptPassword(newUserDM.Password)
 
                 };
                 using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())
                 {
                     try
                     {
-                        _ADMINCONTEXT.Customers.Add(user);
+                        _ADMINCONTEXT.AdminUsers.Add(user);
                         _ADMINCONTEXT.SaveChanges();
                         transaction.Commit();
                         status = Constants.AddedSuccessfully;
-                        Log.Information("Ecommerce: UserRepository: SignUp: User Added Successfully");
+                        Log.Information("Ecommerce: AdminRepository: SignUp: User Added Successfully");
                     }
                     catch (Exception ex)
                     {
-                        Log.Error("Transaction Failed: " + ex.Message + " Stack Trace: " + ex.StackTrace);
+                        Log.Error("Ecommerce: AdminRepository: SignUp: Transaction Failed: " + ex.Message + " Stack Trace: " + ex.StackTrace);
                         transaction.Rollback();
                         status = Constants.Failed;
 
                     }
                 }
-                Log.Information("Ecommerce: UserRepository: SignUp: New User Add Completed with Status:" + status);
+                Log.Information("Ecommerce: AdminRepository: SignUp: New User Add Completed with Status:" + status);
 
             }
-            Log.Information("Ecommerce: UserRepository: SignUp: Completed");
+            Log.Information("Ecommerce: AdminRepository: SignUp: Completed");
             return await Task.FromResult(status);
         }
         #endregion

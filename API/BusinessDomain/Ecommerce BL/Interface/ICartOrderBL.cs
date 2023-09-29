@@ -8,5 +8,6 @@ namespace Ecommerce_BL.Interface
 {
     public interface ICartOrderBL
     {
+
     }
 }

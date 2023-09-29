@@ -12,4 +12,6 @@ public partial class AdminUser
     public string LastName { get; set; } = null!;
 
     public string PasswordHash { get; set; } = null!;
+
+    public string? Email { get; set; }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ecommerce_BL.BusinessDomain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Ecommerce_BL.Interface
 {
     public interface IProductBL
     {
+        Task<CategoryBM> GetCategories();
+
     }
 }

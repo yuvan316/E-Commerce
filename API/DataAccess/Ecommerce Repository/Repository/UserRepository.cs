@@ -83,6 +83,41 @@ namespace Ecommerce_Repository.Repository
             Log.Information("Ecommerce: UserRepository: SignUp: Completed");
             return await Task.FromResult(status);
         }
+        public async Task<String> SetCustomerAddress(CustomerAddressDM customerAddressDM)
+        {
+            Log.Information("Ecommerce: UserRepository: SetCustomerAddress: Started");
+            var status = String.Empty;
+            var customerAddress = new Address()
+            {
+                Houseno = customerAddressDM.HouseNo,
+                Streetorarea = customerAddressDM.StreetOrArea,
+                City = customerAddressDM.City,
+                Country = customerAddressDM.Country,
+                Pincode = (decimal?)customerAddressDM.PinCode,
+                Landmark = customerAddressDM.Landmark ?? String.Empty,
+                Customerid = Guid.Parse(customerAddressDM.CustomerId)
+            };
+
+            using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())
+            {
+                try
+                {
+                    _ADMINCONTEXT.Addresses.Add(customerAddress);
+                    _ADMINCONTEXT.SaveChanges();
+                    transaction.Commit();
+                    Log.Information("Ecommerce: UserRepository: SetCustomerAddress: Added Successfully");
+                    status = Constants.AddedSuccessfully;
+                }
+                catch (Exception ex)
+                {
+                    Log.Information("Ecommerce: UserRepository: SetCustomerAddress: Failed: Message:" + ex.Message + "Stack Trace:" + ex.StackTrace);
+                    status = Constants.Failed;
+                    transaction.Rollback();
+                }
+            }
+            Log.Information("Ecommerce: UserRepository: SetCustomerAddress: Completed");
+            return await Task.FromResult(status);
+        }
         #endregion
     }
 }

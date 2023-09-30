@@ -36,5 +36,13 @@ namespace Ecommerce_BL.BusinessDomain
             Log.Information("Ecommerce: UserBL: SignUp: Completed");
             return await Task.FromResult(status);
         }
+        public async Task<String> SetCustomerAddress(AddressBM addressBM)
+        {
+            Log.Information("Ecommerce: UserBL: SignUp: Started");
+            var addressDM = addressBM.Adapt<CustomerAddressDM>();
+            var status = await _USERREPOSITORY.SetCustomerAddress(addressDM);
+            Log.Information("Ecommerce: UserBL: SignUp: Completed");
+            return await Task.FromResult(status);
+        }
     }
 }

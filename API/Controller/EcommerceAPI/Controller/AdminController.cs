@@ -13,20 +13,20 @@ namespace EcommerceAPI.Controller
     public class AdminController : BaseController
     {
         #region readonly fields
-        private readonly IUserBL _USERBL;
+        private readonly IAdminBL _ADMINBL;
         #endregion
         #region constructor
-        public AdminController(IUserBL userBL)
+        public AdminController(IAdminBL adminBL)
         {
-            _USERBL = userBL;
+            _ADMINBL = adminBL;
         }
         #endregion
         #region methods
         [HttpPost]
         [Route("SignUp")]
-        public async Task<String> SignUp(NewUserBM newUserBM)
+        public async Task<String> SignUp([FromBody] NewUserBM newUserBM)
         {
-            return ("");
+            return await _ADMINBL.SignUp(newUserBM);
         }
         #endregion
     }

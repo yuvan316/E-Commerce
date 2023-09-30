@@ -9,9 +9,17 @@ public partial class Address
 
     public Guid? Customerid { get; set; }
 
-    public string? Streetaddress { get; set; }
-
     public string? City { get; set; }
+
+    public string? Streetorarea { get; set; }
+
+    public decimal? Pincode { get; set; }
+
+    public decimal? Houseno { get; set; }
+
+    public string? Landmark { get; set; }
+
+    public string? Country { get; set; }
 
     public virtual Customer? Customer { get; set; }
 }

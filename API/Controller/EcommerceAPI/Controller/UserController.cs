@@ -34,6 +34,16 @@ namespace EcommerceAPI.Controller
             var status=await _USERBL.SignUp(newUser);
             Log.Information("Ecommerce: UserController: SignUp: Started");
             return Ok(status);
+
+        }
+        [HttpPost]
+        [Route("SetCustomerAddress")]
+        public async Task<IActionResult> SetCustomerAddress([FromBody] AddressBM addressBM)
+        {
+            Log.Information("Ecommerce: UserController: SetCustomerAddress: Started");
+            var status = await _USERBL.SetCustomerAddress(addressBM);
+            Log.Information("Ecommerce: UserController: SetCustomerAddress: Started");
+            return Ok(status);
         }
         #endregion
     }

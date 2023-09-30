@@ -39,10 +39,22 @@ public partial class AdminContext : DbContext
             entity.Property(e => e.City)
                 .HasMaxLength(255)
                 .HasColumnName("city");
+            entity.Property(e => e.Country)
+                .HasMaxLength(100)
+                .HasColumnName("country");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
-            entity.Property(e => e.Streetaddress)
-                .HasMaxLength(255)
-                .HasColumnName("streetaddress");
+            entity.Property(e => e.Houseno)
+                .HasPrecision(15)
+                .HasColumnName("houseno");
+            entity.Property(e => e.Landmark)
+                .HasMaxLength(500)
+                .HasColumnName("landmark");
+            entity.Property(e => e.Pincode)
+                .HasPrecision(15)
+                .HasColumnName("pincode");
+            entity.Property(e => e.Streetorarea)
+                .HasMaxLength(500)
+                .HasColumnName("streetorarea");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Addresses)
                 .HasForeignKey(d => d.Customerid)
@@ -56,6 +68,7 @@ public partial class AdminContext : DbContext
             entity.ToTable("AdminUser", "admin");
 
             entity.Property(e => e.UserId).HasDefaultValueSql("gen_random_uuid()");
+            entity.Property(e => e.Email).HasMaxLength(300);
             entity.Property(e => e.FirstName).HasColumnType("character varying");
             entity.Property(e => e.LastName).HasColumnType("character varying");
             entity.Property(e => e.PasswordHash).HasColumnType("character varying");

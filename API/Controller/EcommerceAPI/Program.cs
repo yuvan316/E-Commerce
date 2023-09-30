@@ -48,11 +48,13 @@ try
     builder.Services.AddTransient<IUserBL, UserBL>();
     builder.Services.AddTransient<IProductBL, ProductBL>();
     builder.Services.AddTransient<ICartOrderBL, CartOrderBL>();
+    builder.Services.AddTransient<IAdminBL, AdminBL>();
 
     // Adding repository dependency injection
     builder.Services.AddTransient<IProductRepository, ProductRepository>();
     builder.Services.AddTransient<ICartandOrderRepository, CartandOrderRepository>();
     builder.Services.AddTransient<IUserRepository, UserRepository>();
+    builder.Services.AddTransient<IAdminRepository, AdminRepository>();
     builder.Services.AddTransient<ExceptionMiddleware>();
     TypeAdapterConfig<LoginBM, LoginDM>.NewConfig();
 

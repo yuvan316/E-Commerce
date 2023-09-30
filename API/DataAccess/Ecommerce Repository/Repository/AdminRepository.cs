@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_Repository.Repository
 {
-    public class AdminRepository:IAdminRepository
+    public class AdminRepository : IAdminRepository
     {
         #region readonly fields
         private readonly AdminContext _ADMINCONTEXT;

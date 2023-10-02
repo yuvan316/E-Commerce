@@ -59,7 +59,7 @@ try
     TypeAdapterConfig<LoginBM, LoginDM>.NewConfig();
 
     var app = builder.Build();
-   
+
     // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
@@ -82,7 +82,7 @@ try
     });
 
     //minimal api to fetch brands data 
-    app.MapGet("/GetBrands/{CategoryId}", async (String categoryId,IProductRepository repository) =>
+    app.MapGet("/GetBrands/{CategoryId}", async (String categoryId, IProductRepository repository) =>
     {
         var brands = await repository.Brands(categoryId);
         if (brands == null)
@@ -114,7 +114,7 @@ try
     app.UseMiddleware<ExceptionMiddleware>();
     app.Run();
 }
-catch(Exception ex)
+catch (Exception ex)
 {
     Log.Logger.Error(ex.Message + ex.StackTrace);
 }

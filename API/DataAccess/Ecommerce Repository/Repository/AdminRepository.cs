@@ -1,13 +1,10 @@
-﻿using CoreComponents.Constants;
+﻿#region namespaces
+using CoreComponents.Constants;
 using Ecommerce_Repository.DBContext.Admin;
 using Ecommerce_Repository.IRepository;
 using Ecommerce_Repository.Models;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#endregion
 
 namespace Ecommerce_Repository.Repository
 {
@@ -16,17 +13,20 @@ namespace Ecommerce_Repository.Repository
         #region readonly fields
         private readonly AdminContext _ADMINCONTEXT;
         #endregion
+
         #region constructor
         public AdminRepository(AdminContext adminContext)
         {
             _ADMINCONTEXT = adminContext;
         }
         #endregion
+
         #region methods
         public async Task<String> ValidateUser(LoginDM login)
         {
             Log.Information("Ecommerce: AdminRepository: ValidateUser: Started");
             var isAvailableUser = Constants.Invalid;
+            //db context invoke
             var userDetail = _ADMINCONTEXT.AdminUsers.FirstOrDefault(x => x.Email == login.UserName);
             if (userDetail == null || !BCrypt.Net.BCrypt.Verify(login.Password, userDetail.PasswordHash))
             {
@@ -45,6 +45,7 @@ namespace Ecommerce_Repository.Repository
             Log.Information("Ecommerce: AdminRepository: SignUp: Started");
 
             var status = String.Empty;
+            //db context invoke
             var isAvailableUser = _ADMINCONTEXT.AdminUsers.FirstOrDefault(x => x.Email == newUserDM.Email);
             if (isAvailableUser != null)
             {
@@ -64,7 +65,7 @@ namespace Ecommerce_Repository.Repository
 
                 };
                 using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())
-                {
+                {   //save data to db
                     try
                     {
                         _ADMINCONTEXT.AdminUsers.Add(user);

@@ -1,4 +1,4 @@
-﻿#region namespace References
+﻿#region namespaces
 using CoreComponents.ExceptionHandler.Model;
 using Microsoft.AspNetCore.Http;
 using Serilog;

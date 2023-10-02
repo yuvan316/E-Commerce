@@ -23,31 +23,40 @@ namespace Ecommerce_BL.BusinessDomain
         #endregion
 
         #region methods
+
         public async Task<String> ValidateUser(LoginBM loginBM)
         {
             Log.Information("Ecommerce: UserBL: ValidateUser: Started");
-
+            //convert business model to data model
             var loginDM = loginBM.Adapt<LoginDM>();
+            //repo method is called
             var isSuccess = await _USERREPOSITORY.ValidateUser(loginDM);
             Log.Information("Ecommerce: UserBL: ValidateUser: Completed");
             return await Task.FromResult(isSuccess);
         }
+
         public async Task<String> SignUp(NewUserBM newUser)
         {
             Log.Information("Ecommerce: UserBL: SignUp: Started");
+            //convert business model to data model
             var newUserDM = newUser.Adapt<NewUserDM>();
+            //repo method is called
             var status = await _USERREPOSITORY.SignUp(newUserDM);
             Log.Information("Ecommerce: UserBL: SignUp: Completed");
             return await Task.FromResult(status);
         }
+
         public async Task<String> SetCustomerAddress(AddressBM addressBM)
         {
             Log.Information("Ecommerce: UserBL: SignUp: Started");
+            //convert business model to data model
             var addressDM = addressBM.Adapt<CustomerAddressDM>();
+            //repo method is called
             var status = await _USERREPOSITORY.SetCustomerAddress(addressDM);
             Log.Information("Ecommerce: UserBL: SignUp: Completed");
             return await Task.FromResult(status);
         }
+
         #endregion
     }
 }

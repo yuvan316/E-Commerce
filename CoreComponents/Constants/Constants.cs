@@ -1,6 +1,4 @@
-﻿
-
-namespace CoreComponents.Constants
+﻿namespace CoreComponents.Constants
 {
     public static class Constants
     {

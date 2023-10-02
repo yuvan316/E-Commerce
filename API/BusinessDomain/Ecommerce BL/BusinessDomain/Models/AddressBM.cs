@@ -1,5 +1,6 @@
 ﻿#region namespaces
 #endregion
+
 namespace Ecommerce_BL.BusinessDomain.Models
 {
     public class AddressBM

@@ -27,6 +27,7 @@ namespace Ecommerce_Repository.Repository
         {
             Log.Information("Ecommerce: UserRepository: ValidateUser: Started");
             var isAvailableUser = Constants.Invalid;
+            //db context invoke
             var userDetail = _ADMINCONTEXT.Customers.FirstOrDefault(x => x.Email == login.UserName);
             if (userDetail == null || !BCrypt.Net.BCrypt.Verify(login.Password, userDetail.Passwordhash))
             {
@@ -43,6 +44,7 @@ namespace Ecommerce_Repository.Repository
             Log.Information("Ecommerce: UserRepository: SignUp: Started");
 
             var status = String.Empty;
+            //db context invoke
             var isAvailableUser = _ADMINCONTEXT.Customers.FirstOrDefault(x => x.Email == newUserDM.Email);
             if (isAvailableUser != null)
             {
@@ -62,7 +64,7 @@ namespace Ecommerce_Repository.Repository
 
                 };
                 using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())
-                {
+                {//save data to db
                     try
                     {
                         _ADMINCONTEXT.Customers.Add(user);
@@ -101,7 +103,7 @@ namespace Ecommerce_Repository.Repository
             };
 
             using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())
-            {
+            {//save data to db
                 try
                 {
                     _ADMINCONTEXT.Addresses.Add(customerAddress);

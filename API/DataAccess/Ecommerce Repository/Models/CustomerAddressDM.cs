@@ -1,5 +1,6 @@
 ﻿#region namespaces
 #endregion
+
 namespace Ecommerce_Repository.Models
 {
     public class CustomerAddressDM

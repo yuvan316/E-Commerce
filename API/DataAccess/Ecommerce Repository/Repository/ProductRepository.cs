@@ -5,7 +5,6 @@ using Ecommerce_Repository.Models;
 using Serilog;
 #endregion
 
-
 namespace Ecommerce_Repository.Repository
 {
     public class ProductRepository : IProductRepository

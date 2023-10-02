@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region namespaces
 using System.Net;
+#endregion
+
 namespace CoreComponents.ExceptionHandler
 {
-
     public class InternalServerException : CustomException
     {
         public InternalServerException(string message, List<string>? errors = default)

@@ -69,7 +69,41 @@ try
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ecommerce API v1");
         });
     }
+    //minimal api to fetch category data 
+    app.MapGet("/GetCategories", async (IProductRepository repository) =>
+    {
+        var categories = await repository.Categories();
+        if (categories == null)
+        {
+            return Results.NotFound("No categories found");
+        }
 
+        return Results.Ok(categories);
+    });
+
+    //minimal api to fetch brands data 
+    app.MapGet("/GetBrands/{CategoryId}", async (String categoryId,IProductRepository repository) =>
+    {
+        var brands = await repository.Brands(categoryId);
+        if (brands == null)
+        {
+            return Results.NotFound("No brands found");
+        }
+
+        return Results.Ok(brands);
+    });
+
+    //minimal api to fetch category data 
+    app.MapGet("/GetProducts/{BrandId}", async (String brandId, IProductRepository repository) =>
+    {
+        var products = await repository.Products(brandId);
+        if (products == null)
+        {
+            return Results.NotFound("No products found");
+        }
+
+        return Results.Ok(products);
+    });
 
     app.UseHttpsRedirection();
     app.UseStaticFiles();

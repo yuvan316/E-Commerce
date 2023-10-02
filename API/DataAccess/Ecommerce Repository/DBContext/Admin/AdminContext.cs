@@ -21,8 +21,8 @@ public partial class AdminContext : DbContext
 
     public virtual DbSet<Customer> Customers { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    { }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasPostgresExtension("pgcrypto");
@@ -42,6 +42,14 @@ public partial class AdminContext : DbContext
             entity.Property(e => e.Country)
                 .HasMaxLength(100)
                 .HasColumnName("country");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
             entity.Property(e => e.Houseno)
                 .HasPrecision(15)
@@ -49,6 +57,14 @@ public partial class AdminContext : DbContext
             entity.Property(e => e.Landmark)
                 .HasMaxLength(500)
                 .HasColumnName("landmark");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Pincode)
                 .HasPrecision(15)
                 .HasColumnName("pincode");
@@ -68,9 +84,25 @@ public partial class AdminContext : DbContext
             entity.ToTable("AdminUser", "admin");
 
             entity.Property(e => e.UserId).HasDefaultValueSql("gen_random_uuid()");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
             entity.Property(e => e.Email).HasMaxLength(300);
             entity.Property(e => e.FirstName).HasColumnType("character varying");
             entity.Property(e => e.LastName).HasColumnType("character varying");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.PasswordHash).HasColumnType("character varying");
         });
 
@@ -83,6 +115,14 @@ public partial class AdminContext : DbContext
             entity.Property(e => e.Customerid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("customerid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .HasColumnName("email");
@@ -92,6 +132,14 @@ public partial class AdminContext : DbContext
             entity.Property(e => e.Lastname)
                 .HasMaxLength(255)
                 .HasColumnName("lastname");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Passwordhash)
                 .HasMaxLength(255)
                 .HasColumnName("passwordhash");

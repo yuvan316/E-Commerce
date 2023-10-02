@@ -1,6 +1,5 @@
 ﻿#region namespaces
 using CoreComponents.Constants;
-using CoreComponents.EncryptDecrypt;
 using Ecommerce_Repository.DBContext.Admin;
 using Ecommerce_Repository.IRepository;
 using Ecommerce_Repository.Models;
@@ -15,25 +14,28 @@ namespace Ecommerce_Repository.Repository
         #region readonly fields
         private readonly AdminContext _ADMINCONTEXT;
         #endregion
+
         #region constructor
         public UserRepository(AdminContext adminContext)
         {
             _ADMINCONTEXT = adminContext;
         }
         #endregion
+
         #region methods
         public async Task<String> ValidateUser(LoginDM login)
         {
             Log.Information("Ecommerce: UserRepository: ValidateUser: Started");
             var isAvailableUser = Constants.Invalid;
-            var passwordHash = EncryptDecrypt.EncryptPassword(login.Password);
-            var userDetail = _ADMINCONTEXT.Customers.FirstOrDefault(x => x.Email == login.UserName && x.Passwordhash == passwordHash);
-            if (userDetail != null)
+            var userDetail = _ADMINCONTEXT.Customers.FirstOrDefault(x => x.Email == login.UserName);
+            if (userDetail == null || !BCrypt.Net.BCrypt.Verify(login.Password, userDetail.Passwordhash))
+            {
+                Log.Information("Ecommerce: UserRepository: ValidateUser: InvalidUser");
+            }
+            else
             {
                 isAvailableUser = Constants.Valid;
             }
-            Log.Information("Ecommerce: UserRepository: ValidateUser: Completed");
-
             return await Task.FromResult(isAvailableUser);
         }
         public async Task<String> SignUp(NewUserDM newUserDM)
@@ -56,7 +58,7 @@ namespace Ecommerce_Repository.Repository
                     Firstname = newUserDM.FirstName,
                     Lastname = newUserDM.LastName,
                     Email = newUserDM.Email,
-                    Passwordhash = EncryptDecrypt.EncryptPassword(newUserDM.Password)
+                    Passwordhash = BCrypt.Net.BCrypt.HashPassword(newUserDM.Password)
 
                 };
                 using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())

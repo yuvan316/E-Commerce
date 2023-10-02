@@ -18,18 +18,7 @@ namespace EcommerceAPI.Controller
         }
         #endregion
         #region methods
-        //[HttpGet]
-        //[Route("GetCategories")]
-        //public async Task<IActionResult> GetCategories()
-        //{
-
-        //}
-        //[HttpGet]
-        //[Route("GetProducts")]
-        //public async Task<IActionResult> GetProducts(String categoryId)
-        //{
-
-        //}
+     
         #endregion
     }
 

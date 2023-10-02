@@ -14,12 +14,15 @@ namespace Ecommerce_BL.BusinessDomain
         #region readonly fields
         private readonly IAdminRepository _ADMINREPOSITORY;
         #endregion
+
         #region constructor
         public AdminBL(IAdminRepository adminRepository)
         {
             _ADMINREPOSITORY = adminRepository;
         }
         #endregion
+
+        #region methods
         public async Task<String> SignUp(NewUserBM newUserBM)
         {
             Log.Information("Ecommerce: AdminBL: SignUp: Started");
@@ -28,5 +31,6 @@ namespace Ecommerce_BL.BusinessDomain
             Log.Information("Ecommerce: AdminBL: SignUp: Completed");
             return await Task.FromResult(status);
         }
+        #endregion
     }
 }

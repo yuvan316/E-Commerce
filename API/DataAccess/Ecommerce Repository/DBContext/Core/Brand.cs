@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 namespace Ecommerce_Repository.DBContext.Core;
 
-public partial class Category
+public partial class Brand
 {
+    public Guid Brandid { get; set; }
+
     public Guid Categoryid { get; set; }
 
-    public string? Categoryname { get; set; }
+    public string? Brandname { get; set; }
 
     public DateTime? Createdon { get; set; }
 
@@ -17,5 +19,7 @@ public partial class Category
 
     public DateTime? Modifiedon { get; set; }
 
-    public virtual ICollection<Brand> Brands { get; set; } = new List<Brand>();
+    public virtual Category Category { get; set; } = null!;
+
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

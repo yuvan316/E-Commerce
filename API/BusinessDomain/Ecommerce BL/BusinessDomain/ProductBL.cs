@@ -1,19 +1,22 @@
-﻿using Ecommerce_BL.BusinessDomain.Models;
+﻿#region namespaces
 using Ecommerce_BL.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#endregion
 
 namespace Ecommerce_BL.BusinessDomain
 {
     public class ProductBL:IProductBL
     {
-        public async Task<CategoryBM> GetCategories()
+        #region readonly fields
+        #endregion
+
+        #region constructor
+        public ProductBL()
         {
-            CategoryBM categoryBM = null;
-            return categoryBM;
+            
         }
+        #endregion
+
+        #region methods
+        #endregion
     }
 }

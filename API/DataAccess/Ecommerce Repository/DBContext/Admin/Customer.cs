@@ -15,5 +15,13 @@ public partial class Customer
 
     public string? Passwordhash { get; set; }
 
+    public DateTime? Createdon { get; set; }
+
+    public string? Createdby { get; set; }
+
+    public string? Lastupdatedby { get; set; }
+
+    public DateTime? Modifiedon { get; set; }
+
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 }

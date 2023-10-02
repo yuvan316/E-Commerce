@@ -1,5 +1,4 @@
 ﻿using CoreComponents.Constants;
-using CoreComponents.EncryptDecrypt;
 using Ecommerce_Repository.DBContext.Admin;
 using Ecommerce_Repository.IRepository;
 using Ecommerce_Repository.Models;
@@ -28,9 +27,12 @@ namespace Ecommerce_Repository.Repository
         {
             Log.Information("Ecommerce: AdminRepository: ValidateUser: Started");
             var isAvailableUser = Constants.Invalid;
-            var passwordHash = EncryptDecrypt.EncryptPassword(login.Password);
-            var userDetail = _ADMINCONTEXT.AdminUsers.FirstOrDefault(x => x.Email == login.UserName && x.PasswordHash == passwordHash);
-            if (userDetail != null)
+            var userDetail = _ADMINCONTEXT.AdminUsers.FirstOrDefault(x => x.Email == login.UserName);
+            if (userDetail == null || !BCrypt.Net.BCrypt.Verify(login.Password, userDetail.PasswordHash))
+            {
+                Log.Information("Ecommerce: AdminRepository: ValidateUser: InvalidUser");
+            }
+            else
             {
                 isAvailableUser = Constants.Valid;
             }
@@ -58,7 +60,7 @@ namespace Ecommerce_Repository.Repository
                     FirstName = newUserDM.FirstName,
                     LastName = newUserDM.LastName,
                     Email = newUserDM.Email,
-                    PasswordHash = EncryptDecrypt.EncryptPassword(newUserDM.Password)
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUserDM.Password)
 
                 };
                 using (var transaction = _ADMINCONTEXT.Database.BeginTransaction())

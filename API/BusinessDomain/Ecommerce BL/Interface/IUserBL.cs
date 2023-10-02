@@ -7,9 +7,11 @@ namespace Ecommerce_BL.Interface
 {
     public interface IUserBL
     {
+        #region method declarations
         Task<String> ValidateUser(LoginBM loginBM);
         Task<String> SignUp(NewUserBM newUser);
 
         Task<String> SetCustomerAddress(AddressBM addressBM);
+        #endregion
     }
 }

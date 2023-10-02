@@ -14,11 +14,15 @@ namespace Ecommerce_BL.BusinessDomain
         #region readonly fields
         private readonly IUserRepository _USERREPOSITORY;
         #endregion
+
+        #region constructor
         public UserBL(IUserRepository userRepository)
         {
             _USERREPOSITORY = userRepository;
         }
+        #endregion
 
+        #region methods
         public async Task<String> ValidateUser(LoginBM loginBM)
         {
             Log.Information("Ecommerce: UserBL: ValidateUser: Started");
@@ -44,5 +48,6 @@ namespace Ecommerce_BL.BusinessDomain
             Log.Information("Ecommerce: UserBL: SignUp: Completed");
             return await Task.FromResult(status);
         }
+        #endregion
     }
 }

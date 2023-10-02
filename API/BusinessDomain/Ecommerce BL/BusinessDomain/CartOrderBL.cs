@@ -1,19 +1,24 @@
-﻿using Ecommerce_BL.Interface;
+﻿#region namespaces
+using Ecommerce_BL.Interface;
 using Ecommerce_Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+#endregion
 
 namespace Ecommerce_BL.BusinessDomain
 {
     public class CartOrderBL:ICartOrderBL
     {
+        #region readonly fields
         private readonly ICartandOrderRepository _ICARTANDORDERREPO;
+        #endregion
+
+        #region constructor
         public CartOrderBL(ICartandOrderRepository cartandOrderRepository)
         {
             _ICARTANDORDERREPO = cartandOrderRepository;
         }
+        #endregion
+
+        #region methods
+        #endregion
     }
 }

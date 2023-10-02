@@ -15,5 +15,13 @@ public partial class Review
 
     public string? Reviewtext { get; set; }
 
+    public DateTime? Createdon { get; set; }
+
+    public string? Createdby { get; set; }
+
+    public string? Lastupdatedby { get; set; }
+
+    public DateTime? Modifiedon { get; set; }
+
     public virtual Product? Product { get; set; }
 }

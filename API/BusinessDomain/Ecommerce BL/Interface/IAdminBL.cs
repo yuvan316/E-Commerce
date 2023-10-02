@@ -6,6 +6,8 @@ namespace Ecommerce_BL.Interface
 {
     public interface IAdminBL
     {
+        #region method declarations
         Task<String> SignUp(NewUserBM newUserBM);
+        #endregion
     }
 }

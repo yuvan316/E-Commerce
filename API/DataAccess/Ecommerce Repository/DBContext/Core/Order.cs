@@ -11,6 +11,14 @@ public partial class Order
 
     public DateTime? Orderdate { get; set; }
 
+    public DateTime? Createdon { get; set; }
+
+    public string? Createdby { get; set; }
+
+    public string? Lastupdatedby { get; set; }
+
+    public DateTime? Modifiedon { get; set; }
+
     public virtual ICollection<Orderitem> Orderitems { get; set; } = new List<Orderitem>();
 
     public virtual ICollection<Shipping> Shippings { get; set; } = new List<Shipping>();

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿#region namespaces
+#endregion
 namespace Ecommerce_Repository.IRepository
 {
     public interface ICartandOrderRepository
     {
+        #region method declarations
+        #endregion
     }
 }

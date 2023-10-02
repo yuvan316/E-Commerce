@@ -1,15 +1,11 @@
-﻿using Ecommerce_BL.BusinessDomain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿#region namespaces
+#endregion
 namespace Ecommerce_BL.Interface
 {
     public interface IProductBL
     {
-        Task<CategoryBM> GetCategories();
+        #region method declarations
+        #endregion
 
     }
 }

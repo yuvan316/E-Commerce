@@ -15,12 +15,14 @@ namespace EcommerceAPI.Controller
         #region readonly fields
         private readonly IAdminBL _ADMINBL;
         #endregion
+
         #region constructor
         public AdminController(IAdminBL adminBL)
         {
             _ADMINBL = adminBL;
         }
         #endregion
+
         #region methods
         [HttpPost]
         [Route("SignUp")]

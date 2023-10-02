@@ -15,9 +15,13 @@ public partial class CoreContext : DbContext
     {
     }
 
+    public virtual DbSet<Brand> Brands { get; set; }
+
     public virtual DbSet<Cart> Carts { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
+
+    public virtual DbSet<Image> Images { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -35,6 +39,42 @@ public partial class CoreContext : DbContext
     {
         modelBuilder.HasPostgresExtension("pgcrypto");
 
+        modelBuilder.Entity<Brand>(entity =>
+        {
+            entity.HasKey(e => e.Brandid).HasName("brands_pkey");
+
+            entity.ToTable("brands", "core");
+
+            entity.Property(e => e.Brandid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("brandid");
+            entity.Property(e => e.Brandname)
+                .HasMaxLength(255)
+                .HasColumnName("brandname");
+            entity.Property(e => e.Categoryid).HasColumnName("categoryid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
+
+            entity.HasOne(d => d.Category).WithMany(p => p.Brands)
+                .HasForeignKey(d => d.Categoryid)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("brands_categoryid_fkey");
+        });
+
         modelBuilder.Entity<Cart>(entity =>
         {
             entity.HasKey(e => e.Cartid).HasName("cart_pkey");
@@ -44,7 +84,23 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Cartid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("cartid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Productid).HasColumnName("productid");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
 
@@ -65,6 +121,62 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Categoryname)
                 .HasMaxLength(255)
                 .HasColumnName("categoryname");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
+        });
+
+        modelBuilder.Entity<Image>(entity =>
+        {
+            entity.HasKey(e => e.Imageid).HasName("images_pkey");
+
+            entity.ToTable("images", "core");
+
+            entity.Property(e => e.Imageid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("imageid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
+            entity.Property(e => e.Entityid).HasColumnName("entityid");
+            entity.Property(e => e.Entitytype)
+                .HasMaxLength(255)
+                .HasColumnName("entitytype");
+            entity.Property(e => e.Filename)
+                .HasMaxLength(255)
+                .HasColumnName("filename");
+            entity.Property(e => e.Filesize).HasColumnName("filesize");
+            entity.Property(e => e.Imagedata).HasColumnName("imagedata");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
+            entity.Property(e => e.Uploaddate)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("uploaddate");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -76,8 +188,25 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Orderid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("orderid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Orderdate)
+                .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("orderdate");
         });
@@ -91,6 +220,22 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Orderitemid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("orderitemid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Orderid).HasColumnName("orderid");
             entity.Property(e => e.Productid).HasColumnName("productid");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
@@ -113,7 +258,23 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Productid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("productid");
-            entity.Property(e => e.Categoryid).HasColumnName("categoryid");
+            entity.Property(e => e.Brandid).HasColumnName("brandid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Price)
                 .HasPrecision(18, 2)
                 .HasColumnName("price");
@@ -122,9 +283,9 @@ public partial class CoreContext : DbContext
                 .HasColumnName("productname");
             entity.Property(e => e.Userid).HasColumnName("userid");
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Products)
-                .HasForeignKey(d => d.Categoryid)
-                .HasConstraintName("products_categoryid_fkey");
+            entity.HasOne(d => d.Brand).WithMany(p => p.Products)
+                .HasForeignKey(d => d.Brandid)
+                .HasConstraintName("brandid_productid_fkey");
         });
 
         modelBuilder.Entity<Review>(entity =>
@@ -136,7 +297,23 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Reviewid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("reviewid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
             entity.Property(e => e.Customerid).HasColumnName("customerid");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Productid).HasColumnName("productid");
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.Reviewtext).HasColumnName("reviewtext");
@@ -155,6 +332,22 @@ public partial class CoreContext : DbContext
             entity.Property(e => e.Shippingid)
                 .HasDefaultValueSql("gen_random_uuid()")
                 .HasColumnName("shippingid");
+            entity.Property(e => e.Createdby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("createdby");
+            entity.Property(e => e.Createdon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdon");
+            entity.Property(e => e.Lastupdatedby)
+                .HasMaxLength(500)
+                .HasDefaultValueSql("'EcommerceSystem'::character varying")
+                .HasColumnName("lastupdatedby");
+            entity.Property(e => e.Modifiedon)
+                .HasDefaultValueSql("now()")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("modifiedon");
             entity.Property(e => e.Orderid).HasColumnName("orderid");
             entity.Property(e => e.Shippingaddress)
                 .HasMaxLength(255)
